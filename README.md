@@ -2,9 +2,9 @@
 
 ## 한국어
 
-혼자서 채팅하는 프로그램
+혼자서 채팅하는 프로젝트
 
-### 기능
+### 기능들
 
 - **Tab**: 보내는 사람 전환 (나 / 너)
 - 메세지 앞 **`>`**: 내레이션 메시지로 전송 (예: `>내래이션입니다.`)
@@ -30,7 +30,7 @@ npm run dev
 
 ## English
 
-A program for chatting with yourself.
+A project for chatting with yourself
 
 ### Features
 
