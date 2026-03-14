@@ -51,9 +51,13 @@ function App() {
                         setInput(e.target.value);
                      }}
                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && input.trim()) {
-                           const isNarration = input.startsWith('>');
-                           const message = input.replace(/^>/, '');
+                        if (e.key === 'Enter') {
+                           const trimmed = input.trim();
+                           if (!trimmed) return;
+
+                           const isNarration = trimmed.startsWith('>');
+                           const message = trimmed.replace(/^>/, '').trim();
+
                            setChats((prev) => [
                               ...prev,
                               {
