@@ -9,12 +9,14 @@ interface Chat {
 
 interface ChatProps {
    chat: Chat;
+   onDoubleClick: () => void;
 }
 
 function App() {
    const [chats, setChats] = useState<Chat[]>([]);
    const [sender, setSender] = useState<'me' | 'you'>('me');
    const [input, setInput] = useState<string>('');
+   const [editingId, setEditingId] = useState<number | null>(null);
 
    useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,7 +40,14 @@ function App() {
          <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 shadow-md">
             <div className="-mt-1 flex w-full grow flex-col overflow-y-auto">
                {chats.map((chat) => (
-                  <Chat chat={chat} key={chat.id} />
+                  <Chat
+                     chat={chat}
+                     onDoubleClick={() => {
+                        setEditingId(chat.id);
+                        setInput(chat.message);
+                     }}
+                     key={chat.id}
+                  />
                ))}
                <div ref={bottomRef} />
             </div>
@@ -51,7 +60,7 @@ function App() {
                </div>
                <div className="h-12 w-full">
                   <input
-                     className="h-full w-full rounded-lg bg-white p-2 shadow-sm transition-shadow duration-300 outline-none hover:shadow-md"
+                     className={`h-full w-full rounded-lg p-2 shadow-sm transition-shadow duration-300 outline-none hover:shadow-md ${editingId ? 'bg-yellow-200' : 'bg-white'}`}
                      type="text"
                      value={input}
                      onChange={(e) => {
@@ -65,14 +74,26 @@ function App() {
                            const isNarration = trimmed.startsWith('>');
                            const message = trimmed.replace(/^>/, '').trim();
 
-                           setChats((prev) => [
-                              ...prev,
-                              {
-                                 id: Date.now(),
-                                 message: message,
-                                 sender: isNarration ? 'narration' : sender,
-                              },
-                           ]);
+                           if (editingId === null) {
+                              setChats((prev) => [
+                                 ...prev,
+                                 {
+                                    id: Date.now(),
+                                    message: message,
+                                    sender: isNarration ? 'narration' : sender,
+                                 },
+                              ]);
+                           } else {
+                              setChats((prev) =>
+                                 prev.map((chat) =>
+                                    chat.id === editingId
+                                       ? { ...chat, message: input }
+                                       : chat,
+                                 ),
+                              );
+                              setEditingId(null);
+                           }
+
                            setInput('');
                         }
                      }}
@@ -84,7 +105,7 @@ function App() {
    );
 }
 
-function Chat({ chat }: ChatProps) {
+function Chat({ chat, onDoubleClick }: ChatProps) {
    if (chat.sender === 'narration') {
       return (
          <div className="my-2 flex w-full justify-center">
@@ -99,6 +120,7 @@ function Chat({ chat }: ChatProps) {
    return (
       <div
          className={`my-1 flex max-w-60 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
+         onDoubleClick={onDoubleClick}
       >
          <p className="break-all">{chat.message}</p>
       </div>
