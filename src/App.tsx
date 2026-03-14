@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 
 interface Chat {
@@ -27,13 +27,20 @@ function App() {
       return () => window.removeEventListener('keydown', handleKeyDown);
    }, []);
 
+   const bottomRef = useRef<HTMLDivElement>(null);
+
+   useEffect(() => {
+      bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+   }, [chats]);
+
    return (
       <div className="flex h-full w-full items-center justify-center bg-[#ddd]">
          <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 shadow-md">
-            <div className="-mt-1 flex w-full grow flex-col">
+            <div className="-mt-1 flex w-full grow flex-col overflow-y-auto">
                {chats.map((chat) => (
                   <Chat chat={chat} key={chat.id} />
                ))}
+               <div ref={bottomRef} />
             </div>
             <div className="w-full">
                <div className="w-full pr-2 pb-1">
@@ -51,7 +58,7 @@ function App() {
                         setInput(e.target.value);
                      }}
                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
                            const trimmed = input.trim();
                            if (!trimmed) return;
 
@@ -82,16 +89,18 @@ function Chat({ chat }: ChatProps) {
       return (
          <div className="my-2 flex w-full justify-center">
             <div className="min-w-40 rounded-full bg-gray-600/20 px-2">
-               <p className="text-center text-gray-700">{chat.message}</p>
+               <p className="text-center break-all text-gray-700">
+                  {chat.message}
+               </p>
             </div>
          </div>
       );
    }
    return (
       <div
-         className={`my-1 flex items-center rounded-md px-2 py-1 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
+         className={`my-1 flex max-w-60 items-center rounded-xl px-2 py-1 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
       >
-         <p>{chat.message}</p>
+         <p className="break-all">{chat.message}</p>
       </div>
    );
 }
