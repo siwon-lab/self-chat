@@ -88,7 +88,7 @@ function Chat({ chat }: ChatProps) {
    if (chat.sender === 'narration') {
       return (
          <div className="my-2 flex w-full justify-center">
-            <div className="min-w-40 rounded-full bg-gray-600/20 px-2">
+            <div className="min-w-40 rounded-full bg-gray-600/20 px-4">
                <p className="text-center break-all text-gray-700">
                   {chat.message}
                </p>
@@ -98,7 +98,7 @@ function Chat({ chat }: ChatProps) {
    }
    return (
       <div
-         className={`my-1 flex max-w-60 items-center rounded-xl px-2 py-1 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
+         className={`my-1 flex max-w-60 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
       >
          <p className="break-all">{chat.message}</p>
       </div>
