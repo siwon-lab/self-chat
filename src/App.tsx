@@ -119,7 +119,7 @@ function Chat({ chat, onDoubleClick }: ChatProps) {
    }
    return (
       <div
-         className={`my-1 flex max-w-80 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
+         className={`my-1 flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
          onDoubleClick={onDoubleClick}
       >
          <p className="break-all">{chat.message}</p>
