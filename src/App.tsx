@@ -36,7 +36,7 @@ function App() {
    }, [chats]);
 
    return (
-      <div className="flex h-full w-full items-center justify-center bg-[#ddd]">
+      <div className="flex h-full w-full items-center justify-center bg-[#eee]">
          <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 pt-8 shadow-md">
             <div
                className="-mt-1 flex w-full grow flex-col overflow-y-auto"
