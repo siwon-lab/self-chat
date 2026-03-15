@@ -7,8 +7,8 @@
 ### 기능들
 
 - **Tab**: 보내는 사람 전환 (나 / 너)
-- 메세지 앞 **`>`**: 내레이션 메시지로 전송 (예: `>내래이션입니다.`)
-- **더블클릭**: 메시지 수정
+- **메세지 앞 `>`**: 내레이션 메시지로 전송 (예: `>내래이션입니다.`)
+- **메시지 더블클릭**: 메시지 수정
 
 ### 기술 스택
 
@@ -35,8 +35,8 @@ A project for chatting with yourself
 ### Features
 
 - **Tab**: Switch sender (me / you)
-- **`>`** in front of message: Send as narration (e.g. `>I'm a narration.`)
-- **Double click**: Edit a message
+- **`>` in front of message**: Send as narration (e.g. `>I'm a narration.`)
+- **Double click message**: Edit a message
 
 ### Tech Stack
 
