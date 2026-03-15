@@ -7,8 +7,9 @@
 ### 기능들
 
 - **Tab**: 보내는 사람 전환 (나 / 너)
-- **메세지 앞 `>`**: 내레이션 메시지로 전송 (예: `>내래이션입니다.`)
+- **메세지 앞 `> `**: 내레이션 메시지로 전송 (예: `> 내래이션입니다.`)
 - **메시지 더블클릭**: 메시지 수정
+- **우클릭**: 메시지 삭제
 
 ### 기술 스택
 
@@ -25,8 +26,8 @@ npm run dev
 
 ### 추가할 기능들
 
-- 내레이션 수정 및 보내는 사람 수정
-- 메시지 삭제
+- 내레이션 수정
+- 메시지 답장
 
 ## English
 
@@ -35,8 +36,9 @@ A project for chatting with yourself
 ### Features
 
 - **Tab**: Switch sender (me / you)
-- **`>` in front of message**: Send as narration (e.g. `>I'm a narration.`)
+- **`> ` in front of message**: Send as narration (e.g. `> I'm a narration.`)
 - **Double click message**: Edit a message
+- **Right click**: Delete a message
 
 ### Tech Stack
 
@@ -53,5 +55,5 @@ npm run dev
 
 ### Planned Features
 
-- Edit narration and sender of existing messages
-- Delete messages
+- Edit narration
+- Reply to a message

@@ -10,6 +10,7 @@ interface Chat {
 interface ChatProps {
    chat: Chat;
    onDoubleClick: () => void;
+   onContextMenu: () => void;
 }
 
 function App() {
@@ -52,6 +53,11 @@ function App() {
                            setSender(chat.sender);
                         }
                      }}
+                     onContextMenu={() => {
+                        setChats((prev) =>
+                           prev.filter((c) => c.id !== chat.id),
+                        );
+                     }}
                      key={chat.id}
                   />
                ))}
@@ -77,8 +83,8 @@ function App() {
                            const trimmed = input.trim();
                            if (!trimmed) return;
 
-                           const isNarration = trimmed.startsWith('>');
-                           const message = trimmed.replace(/^>/, '').trim();
+                           const isNarration = trimmed.startsWith('> ');
+                           const message = trimmed.replace(/^>\s/, '').trim();
 
                            if (editingId === null) {
                               setChats((prev) => [
@@ -115,11 +121,17 @@ function App() {
    );
 }
 
-function Chat({ chat, onDoubleClick }: ChatProps) {
+function Chat({ chat, onDoubleClick, onContextMenu }: ChatProps) {
    if (chat.sender === 'narration') {
       return (
          <div className="my-2 flex w-full justify-center">
-            <div className="min-w-40 rounded-full bg-gray-600/20 px-4">
+            <div
+               className="min-w-40 rounded-full bg-gray-600/20 px-4"
+               onContextMenu={(e) => {
+                  e.preventDefault();
+                  onContextMenu();
+               }}
+            >
                <p className="text-center break-all text-gray-700">
                   {chat.message}
                </p>
@@ -130,7 +142,14 @@ function Chat({ chat, onDoubleClick }: ChatProps) {
    return (
       <div
          className={`my-1 flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'mr-4 ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto ml-4 bg-white'}`}
-         onDoubleClick={onDoubleClick}
+         onDoubleClick={(e) => {
+            e.preventDefault();
+            onDoubleClick();
+         }}
+         onContextMenu={(e) => {
+            e.preventDefault();
+            onContextMenu();
+         }}
       >
          <p className="break-all">{chat.message}</p>
       </div>
