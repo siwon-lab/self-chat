@@ -46,15 +46,18 @@ function App() {
                   <Chat
                      chat={chat}
                      onDoubleClick={() => {
-                        setEditingId(chat.id);
-                        setInput(chat.message);
+                        if (chat.sender !== 'narration') {
+                           setEditingId(chat.id);
+                           setInput(chat.message);
+                           setSender(chat.sender);
+                        }
                      }}
                      key={chat.id}
                   />
                ))}
                <div ref={bottomRef} />
             </div>
-            <div className="w-full ">
+            <div className="w-full">
                <div className="w-full pr-2 pb-1">
                   <p className="text-right text-sm font-semibold">
                      보내는 사람: {sender === 'me' && '나'}
@@ -90,7 +93,11 @@ function App() {
                               setChats((prev) =>
                                  prev.map((chat) =>
                                     chat.id === editingId
-                                       ? { ...chat, message: input }
+                                       ? {
+                                            ...chat,
+                                            message: input,
+                                            sender: sender,
+                                         }
                                        : chat,
                                  ),
                               );
