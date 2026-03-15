@@ -37,8 +37,11 @@ function App() {
 
    return (
       <div className="flex h-full w-full items-center justify-center bg-[#ddd]">
-         <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 shadow-md">
-            <div className="-mt-1 flex w-full grow flex-col overflow-y-auto">
+         <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 pt-8 shadow-md">
+            <div
+               className="-mt-1 flex w-full grow flex-col overflow-y-auto"
+               // style={{ scrollbarWidth: 'none' }}
+            >
                {chats.map((chat) => (
                   <Chat
                      chat={chat}
@@ -51,7 +54,7 @@ function App() {
                ))}
                <div ref={bottomRef} />
             </div>
-            <div className="w-full">
+            <div className="w-full ">
                <div className="w-full pr-2 pb-1">
                   <p className="text-right text-sm font-semibold">
                      보내는 사람: {sender === 'me' && '나'}
@@ -119,7 +122,7 @@ function Chat({ chat, onDoubleClick }: ChatProps) {
    }
    return (
       <div
-         className={`my-1 flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto bg-white'}`}
+         className={`my-1 flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'mr-4 ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto ml-4 bg-white'}`}
          onDoubleClick={onDoubleClick}
       >
          <p className="break-all">{chat.message}</p>
