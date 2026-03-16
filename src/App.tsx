@@ -16,8 +16,9 @@ interface ChatProps {
 function App() {
    const [chats, setChats] = useState<Chat[]>([]);
    const [sender, setSender] = useState<'me' | 'you'>('me');
-   const [input, setInput] = useState<string>('');
+   const [input, setInput] = useState('');
    const [editingId, setEditingId] = useState<number | null>(null);
+   const [warningClass, setWarningClass] = useState('invisible');
 
    useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -38,7 +39,7 @@ function App() {
 
    return (
       <div className="flex h-full w-full items-center justify-center bg-[#eee]">
-         <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 p-4 pt-8 shadow-md">
+         <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 px-4 pt-8 shadow-md">
             <div
                className="-mt-1 flex w-full grow flex-col overflow-y-auto"
                // style={{ scrollbarWidth: 'none' }}
@@ -53,11 +54,7 @@ function App() {
                            setSender(chat.sender);
                         }
                      }}
-                     onContextMenu={() => {
-                        setChats((prev) =>
-                           prev.filter((c) => c.id !== chat.id),
-                        );
-                     }}
+                     onContextMenu={() => {}}
                      key={chat.id}
                   />
                ))}
@@ -77,11 +74,27 @@ function App() {
                      value={input}
                      onChange={(e) => {
                         setInput(e.target.value);
+                        if (!e.target.value && editingId) {
+                           setWarningClass('');
+                        } else {
+                           setWarningClass('invisible');
+                        }
                      }}
                      onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
                            const trimmed = input.trim();
-                           if (!trimmed) return;
+                           if (!trimmed) {
+                              if (editingId) {
+                                 setWarningClass('invisible');
+                                 setChats((prev) =>
+                                    prev.filter(
+                                       (chat) => chat.id !== editingId,
+                                    ),
+                                 );
+                              } else {
+                                 return;
+                              }
+                           }
 
                            const isNarration = trimmed.startsWith('> ');
                            const message = trimmed.replace(/^>\s/, '').trim();
@@ -115,6 +128,11 @@ function App() {
                      }}
                   />
                </div>
+               <p
+                  className={`${warningClass} h-4 text-center text-xs font-semibold text-red-500`}
+               >
+                  빈 칸으로 남겨둘 시 메시지가 삭제됩니다.
+               </p>
             </div>
          </div>
       </div>

@@ -8,8 +8,8 @@
 
 - **Tab**: 보내는 사람 전환 (나 / 너)
 - **메세지 앞 `> `**: 내레이션 메시지로 전송 (예: `> 내래이션입니다.`)
-- **메시지 더블클릭**: 메시지 수정
-- **우클릭**: 메시지 삭제
+- **메시지 더블클릭**: 메시지 수정 (빈칸으로 남겨둘 시: 삭제)
+- **우클릭**: 메시지 답장 (추가 예정)
 
 ### 기술 스택
 
@@ -37,8 +37,8 @@ A project for chatting with yourself
 
 - **Tab**: Switch sender (me / you)
 - **`> ` in front of message**: Send as narration (e.g. `> I'm a narration.`)
-- **Double click message**: Edit a message
-- **Right click**: Delete a message
+- **Double click message**: Edit message (delete if left empty)
+- **Right click**: Reply to message (planned)
 
 ### Tech Stack
 
@@ -56,4 +56,4 @@ npm run dev
 ### Planned Features
 
 - Edit narration
-- Reply to a message
+- Reply to message
