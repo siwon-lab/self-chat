@@ -41,8 +41,7 @@ function App() {
       <div className="flex h-full w-full items-center justify-center bg-[#eee]">
          <div className="flex h-140 w-100 flex-col rounded-xl bg-sky-300 px-4 pt-8 shadow-md">
             <div
-               className="-mt-1 flex w-full grow flex-col overflow-y-auto"
-               // style={{ scrollbarWidth: 'none' }}
+               className="gap-2 flex w-full grow flex-col overflow-y-auto"
             >
                {chats.map((chat) => (
                   <Chat
@@ -58,6 +57,48 @@ function App() {
                      key={chat.id}
                   />
                ))}
+               {/* <div className="my-1 mr-4 ml-auto flex max-w-72 flex-col justify-center rounded-xl bg-yellow-300 px-2.5 py-1.5">
+                  <div className="flex">
+                     <p className="mr-1 text-sm font-semibold">⤷</p>
+                     <div>
+                        <p className="text-sm font-semibold">나</p>
+                        <p className="text-sm">test</p>
+                        <hr className="mt-1 border-t border-gray-400/20" />
+                        <p className="break-all">testtttttttttt</p>
+                     </div>
+                  </div>
+               </div>
+               <div className="my-1 mr-4 ml-auto flex max-w-72 flex-col justify-center rounded-xl bg-yellow-300 px-2.5 py-1.5">
+                  <div className="flex">
+                     <p className="mr-1 text-sm font-semibold">⤷</p>
+                     <div>
+                        <p className="text-sm font-semibold">나</p>
+                        <p className="text-sm">test</p>
+                     </div>
+                  </div>
+                  <hr className="mt-1 border-t border-gray-400/20" />
+                  <p className="pl-4 break-all">testtttttttttt</p>
+               </div>
+               <div className="my-1 mr-4 ml-auto flex max-w-72 flex-col justify-center rounded-xl bg-yellow-300 px-2.5 py-1.5">
+                  <div className="flex">
+                     <p className="mr-1 text-sm font-semibold">⤷</p>
+                     <div>
+                        <p className="text-sm font-semibold">나</p>
+                        <p className="text-sm">test</p>
+                     </div>
+                  </div>
+                  <hr className="mt-1 border-t border-gray-400/20" />
+                  <p className="break-all">testtttttttttt</p>
+               </div>
+               <div className="my-1 mr-4 ml-auto flex max-w-72 flex-col justify-center rounded-xl bg-yellow-300 px-2.5 py-1.5">
+                  <div className="flex">
+                     <p className="mr-1 text-sm font-semibold">⤷</p>
+                     <p className="text-sm font-semibold">나</p>
+                  </div>
+                  <p className="text-sm">test</p>
+                  <hr className="mt-1 border-t border-gray-400/20" />
+                  <p className="break-all">testtttttttttt</p>
+               </div> */}
                <div ref={bottomRef} />
             </div>
             <div className="w-full">
@@ -142,7 +183,7 @@ function App() {
 function Chat({ chat, onDoubleClick, onContextMenu }: ChatProps) {
    if (chat.sender === 'narration') {
       return (
-         <div className="my-2 flex w-full justify-center">
+         <div className="my-1 flex w-full justify-center">
             <div
                className="min-w-40 rounded-full bg-gray-600/20 px-4"
                onContextMenu={(e) => {
@@ -159,7 +200,7 @@ function Chat({ chat, onDoubleClick, onContextMenu }: ChatProps) {
    }
    return (
       <div
-         className={`my-1 flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'mr-4 ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto ml-4 bg-white'}`}
+         className={`flex max-w-72 items-center rounded-xl px-2.5 py-1.5 ${chat.sender === 'me' && 'mr-4 ml-auto bg-yellow-300'} ${chat.sender === 'you' && 'mr-auto ml-4 bg-white'}`}
          onDoubleClick={(e) => {
             e.preventDefault();
             onDoubleClick();
